@@ -47,5 +47,5 @@ app.get("/api/protected/quotes", function (req, res) {
     return;
   }
 
-  res.status(200).json(quoter.getMany());
+  res.status(200).json(quoter.getMany({ page, limit }));
 });
