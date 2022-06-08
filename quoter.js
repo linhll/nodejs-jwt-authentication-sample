@@ -14,6 +14,8 @@ exports.getMany = function ({ page = 1, limit = 10 }) {
     limit,
     total: totalAmount,
     totalPage: Math.ceil(totalAmount / limit),
-    data: quotes.slice(skip, skip + limit),
+    data: quotes
+      .slice(skip, skip + limit)
+      .map((v, i) => ({ id: skip + i, quote: v })),
   };
 };
