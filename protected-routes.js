@@ -29,3 +29,23 @@ app.use("/api/protected", jwtCheck, requireScope("full_access"));
 app.get("/api/protected/random-quote", function (req, res) {
   res.status(200).json(quoter.getRandomOne());
 });
+
+app.get("/api/protected/quotes", function (req, res) {
+  const limit = +(req.query.limit ?? 10);
+  const page = +(req.query.page ?? 1);
+
+  if (!Number.isInteger(limit)) {
+    res.status(400).json({
+      error: `'limit' must be an integer.`,
+    });
+    return;
+  }
+  if (!Number.isInteger(page)) {
+    res.status(400).json({
+      error: `'page' must be an integer.`,
+    });
+    return;
+  }
+
+  res.status(200).json(quoter.getMany());
+});
